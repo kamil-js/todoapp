@@ -16,64 +16,61 @@ import DeleteIcon from "@material-ui/icons/Delete";
 // Other Imports
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./redux/store";
-import { addTodo, removeTodo, setTodoStatus } from "./redux/todoSlice";
+import { addDone, removeDone, setDoneStatus } from "./redux/doneSlice";
 
-function App() {
+function App3() {
   //React Hooks
-  const [todoDescription, setTodoDescription] = useState("");
+  const [doneDescription, setDoneDescription] = useState("");
 
   //React Redux Hooks
-  const todoList = useSelector((state: RootState) => state);
+  const doneList = useSelector((state: RootState) => state);
   const dispatch = useDispatch<AppDispatch>();
 
   //Rendering
   return (
     <Container maxWidth="xs">
-      <Typography style={{ textAlign: "center" }} variant="h3">
-        Redux List App
-      </Typography>
       <TextField
         variant="outlined"
-        label="To Do Item"
+        label="Done Item"
         fullWidth
-        onChange={(e) => setTodoDescription(e.target.value)}
-        value={todoDescription}
+        onChange={(e) => setDoneDescription(e.target.value)}
+        value={doneDescription}
       />
       <Button
         variant="contained"
         color="primary"
         fullWidth
         onClick={() => {
-          dispatch(addTodo(todoDescription));
-          setTodoDescription("");
+          dispatch(addDone(doneDescription));
+          setDoneDescription("");
         }}
       >
         Add Item
       </Button>
       <List>
-        {todoList.map((todo) => (
-          <ListItem key={todo.id}>
+        {doneList.map((done) => (
+          <ListItem key={done.id}>
             <ListItemText
               style={{
-                textDecoration: todo.completed ? "line-through" : "none",
+                textDecoration: done.completed ? "line-through" : "none",
               }}
             >
-              {todo.description}
+              {done.description}
             </ListItemText>
             <ListItemSecondaryAction>
               <IconButton
                 onClick={() => {
-                  dispatch(removeTodo(todo.id));
+                  dispatch(removeDone(done.id));
                 }}
               >
                 <DeleteIcon />
               </IconButton>
               <Checkbox
                 edge="end"
-                value={todo.completed}
+                value={done.completed}
                 onChange={() => {
                   dispatch(
-                    setTodoStatus({ completed: !todo.completed, id: todo.id })
+                    setDoneStatus({ completed: !done.completed, id: done.id })
                   );
                 }}
               />
@@ -86,4 +83,4 @@ function App() {
 }
 
 
-export default App;
+export default App3;

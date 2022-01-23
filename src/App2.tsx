@@ -16,64 +16,61 @@ import DeleteIcon from "@material-ui/icons/Delete";
 // Other Imports
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./redux/store";
-import { addTodo, removeTodo, setTodoStatus } from "./redux/todoSlice";
+import { addInProgress, removeInProgress, setInProgressStatus } from "./redux/inProgressSlice";
 
-function App() {
+function App2() {
   //React Hooks
-  const [todoDescription, setTodoDescription] = useState("");
+  const [inProgressDescription, setInProgressDescription] = useState("");
 
   //React Redux Hooks
-  const todoList = useSelector((state: RootState) => state);
+  const inProgressList = useSelector((state: RootState) => state);
   const dispatch = useDispatch<AppDispatch>();
 
   //Rendering
   return (
     <Container maxWidth="xs">
-      <Typography style={{ textAlign: "center" }} variant="h3">
-        Redux List App
-      </Typography>
       <TextField
         variant="outlined"
-        label="To Do Item"
+        label="In Progress Item"
         fullWidth
-        onChange={(e) => setTodoDescription(e.target.value)}
-        value={todoDescription}
+        onChange={(e) => setInProgressDescription(e.target.value)}
+        value={inProgressDescription}
       />
       <Button
         variant="contained"
         color="primary"
         fullWidth
         onClick={() => {
-          dispatch(addTodo(todoDescription));
-          setTodoDescription("");
+          dispatch(addInProgress(inProgressDescription));
+          setInProgressDescription("");
         }}
       >
         Add Item
       </Button>
       <List>
-        {todoList.map((todo) => (
-          <ListItem key={todo.id}>
+        {inProgressList.map((inProgress) => (
+          <ListItem key={inProgress.id}>
             <ListItemText
               style={{
-                textDecoration: todo.completed ? "line-through" : "none",
+                textDecoration: inProgress.completed ? "line-through" : "none",
               }}
             >
-              {todo.description}
+              {inProgress.description}
             </ListItemText>
             <ListItemSecondaryAction>
               <IconButton
                 onClick={() => {
-                  dispatch(removeTodo(todo.id));
+                  dispatch(removeInProgress(inProgress.id));
                 }}
               >
                 <DeleteIcon />
               </IconButton>
               <Checkbox
                 edge="end"
-                value={todo.completed}
+                value={inProgress.completed}
                 onChange={() => {
                   dispatch(
-                    setTodoStatus({ completed: !todo.completed, id: todo.id })
+                    setInProgressStatus({ completed: !inProgress.completed, id: inProgress.id })
                   );
                 }}
               />
@@ -86,4 +83,4 @@ function App() {
 }
 
 
-export default App;
+export default App2;
