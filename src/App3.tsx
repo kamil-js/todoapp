@@ -3,7 +3,6 @@ import React from 'react';
 import { useState } from "react";
 // Material-UI Imports
 import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
@@ -23,7 +22,7 @@ function App3() {
   const [doneDescription, setDoneDescription] = useState("");
 
   //React Redux Hooks
-  const doneList = useSelector((state: RootState) => state);
+  const combinedState = useSelector((state: RootState) => state);
   const dispatch = useDispatch<AppDispatch>();
 
   //Rendering
@@ -48,7 +47,7 @@ function App3() {
         Add Item
       </Button>
       <List>
-        {doneList.map((done) => (
+        {combinedState.done.map((done) => (
           <ListItem key={done.id}>
             <ListItemText
               style={{

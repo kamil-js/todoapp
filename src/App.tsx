@@ -23,7 +23,7 @@ function App() {
   const [todoDescription, setTodoDescription] = useState("");
 
   //React Redux Hooks
-  const todoList = useSelector((state: RootState) => state);
+  const combinedState = useSelector((state: RootState) => state);
   const dispatch = useDispatch<AppDispatch>();
 
   //Rendering
@@ -51,7 +51,7 @@ function App() {
         Add Item
       </Button>
       <List>
-        {todoList.map((todo) => (
+        {combinedState.todos.map((todo) => (
           <ListItem key={todo.id}>
             <ListItemText
               style={{

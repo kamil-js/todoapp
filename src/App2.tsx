@@ -3,7 +3,6 @@ import React from 'react';
 import { useState } from "react";
 // Material-UI Imports
 import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
@@ -23,7 +22,7 @@ function App2() {
   const [inProgressDescription, setInProgressDescription] = useState("");
 
   //React Redux Hooks
-  const inProgressList = useSelector((state: RootState) => state);
+  const combinedState = useSelector((state: RootState) => state);
   const dispatch = useDispatch<AppDispatch>();
 
   //Rendering
@@ -48,7 +47,7 @@ function App2() {
         Add Item
       </Button>
       <List>
-        {inProgressList.map((inProgress) => (
+        {combinedState.inProgress.map((inProgress) => (
           <ListItem key={inProgress.id}>
             <ListItemText
               style={{
